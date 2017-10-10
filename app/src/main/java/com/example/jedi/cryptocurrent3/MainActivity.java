@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -22,13 +24,16 @@ import com.example.jedi.cryptocurrent3.utils.JsonUtils;
 import com.example.jedi.cryptocurrent3.utils.NetworkUtils;
 
 import java.net.URL;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        android.app.LoaderManager.LoaderCallbacks<String []> {
+        android.app.LoaderManager.LoaderCallbacks<Map[]> {
 
-        TextView mTextView ;
-        String results;
+       private TextView mTextView ;
+       private String results;
+      private   RecyclerView mRecyclerView;
+        private CurrencyAdapter mCurrencyAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +59,13 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        mTextView = (TextView) findViewById(R.id.display_result);
+//        mTextView = (TextView) findViewById(R.id.display_result);
+        mRecyclerView = (RecyclerView)findViewById(R.id.recyclerview_main) ;
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mCurrencyAdapter = new CurrencyAdapter(this);
+        mRecyclerView.setAdapter(mCurrencyAdapter);
         getLoaderManager().initLoader(0, null, this);
     }
 
@@ -115,10 +126,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public Loader<String[]> onCreateLoader(int i, Bundle bundle) {
-        return new AsyncTaskLoader<String[]>(this) {
 
-            String[] mCryptoData = null;
+
+    public Loader<Map[]> onCreateLoader(int i, Bundle bundle) {
+        return new AsyncTaskLoader<Map[]>(this) {
+
+            Map[] mCryptoData = null;
 
             @Override
             protected void onStartLoading() {
@@ -135,12 +148,13 @@ public class MainActivity extends AppCompatActivity
             }
 
             @Override
-            public String[] loadInBackground() {
+            public Map[] loadInBackground() {
                 Log.i("Den_Den", "Now on the loadInBackground");
                 URL multiplePrice = NetworkUtils.getMultiplePriceUrl(getContext());
                 try {
                     String results = NetworkUtils.getResponseFromApi(multiplePrice);
-                    String[] jsonData = JsonUtils.getCurrentRatesFromJson(MainActivity.this, results);
+                    Map[] jsonData = JsonUtils.getCurrentRatesFromJson(MainActivity.this, results);
+                    Log.i("loadInBackgroud", ""+jsonData.length);
                     return jsonData;
                 }
                 catch (Exception exception){
@@ -149,30 +163,39 @@ public class MainActivity extends AppCompatActivity
                 }
             }
 
-            public void deliverResult(String[] data){
+            public void deliverResult(Map[] data){
                 mCryptoData = data;
+                Log.i("DeliverResult", ""+ data.length);
                 super.deliverResult(data);
             }
+
+
         };
     }
 
     @Override
-    public void onLoadFinished(Loader<String[]> loader, String[] strings) {
-        if(strings != null){
-            for(String string: strings){
-                Log.i("Ghen_Ghen ", " "+string );
-                results = string;
+    public void onLoadFinished(Loader<Map[]> loader, Map[] maps) {
+        mCurrencyAdapter.swapMap(maps);
+        if(maps != null){
+            mCurrencyAdapter.swapMap(maps);
+//            for(Map string: maps){
+//                Log.i("Ghen_Ghen ", " "+string.get("country") );
+
+//                results = string;
+//                mCurrencyAdapter.swapMap(string);
             }
-        }
+//            mCurrencyAdapter.swapMap(maps);
+
+
         else {
             Log.i("Ogbeni ", "You get empty data");
         }
 
-        mTextView.setText(results);
+//        mTextView.setText(results);
     }
 
     @Override
-    public void onLoaderReset(Loader<String[]> loader) {
+    public void onLoaderReset(Loader<Map[]> loader) {
 
     }
 }

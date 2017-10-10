@@ -5,6 +5,8 @@ import android.content.Context;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Map;
+
 /**
  * Created by jedi on 10/6/2017.
  */
@@ -17,7 +19,7 @@ public class JsonUtils {
 
         private static String ETH = "ETH";
 
-        public static String[] getCurrentRatesFromJson(Context context, String currencyJsonStr)
+        public static Map[] getCurrentRatesFromJson(Context context, String currencyJsonStr)
             throws JSONException{
 
             String[] parsedCurrentRate = new String[2];
@@ -28,14 +30,22 @@ public class JsonUtils {
 
             JSONObject btcRates = cryptoResults.getJSONObject(BTC);
             String usdBtcRate = btcRates.getString(USD);
-            String eurBtcRate = btcRates.getString(EUR);
+//            String eurBtcRate = btcRates.getString(EUR);
 
             JSONObject ethRates = cryptoResults.getJSONObject(ETH);
             String usdEthRate = ethRates.getString(USD);
-            String eurEthRate = ethRates.getString(EUR);
+//            String eurEthRate = ethRates.getString(EUR);
 
-            parsedCurrentRate[0] = usdBtcRate + " - " + eurBtcRate;
-            parsedCurrentRate[1] = usdEthRate + " - " + eurEthRate;
-            return parsedCurrentRate;
+//            parsedCurrentRate[0] = usdBtcRate + " - " + eurBtcRate;
+//            parsedCurrentRate[1] = usdEthRate + " - " + eurEthRate;
+//            return parsedCurrentRate;
+            return getAllCountries(usdBtcRate, usdEthRate);
+
+        }
+
+        public static Map[] getAllCountries(String usdBtcRate, String usdEthRate){
+            CountryUtils.BTC = usdBtcRate;
+            CountryUtils.ETH = usdEthRate;
+            return CountryUtils.getAllLocalCurrencies();
         }
 }

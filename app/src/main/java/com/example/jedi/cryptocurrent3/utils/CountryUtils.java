@@ -15,79 +15,146 @@ public class CountryUtils {
     public static String  ETH = null;
 
     public static Map getEnglandRate(){
-            return getLocalValue(0.76497);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(0.76497));
+        localRate.put("country ", "England");
+        return localRate;
     }
 
     public static Map getBrazilRate(){
-        return getLocalValue(3.15410);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(3.15410));
+        localRate.put("country" , "Brazil");
+        return localRate;
     }
 
     public static Map getChinaRate(){
-        return getLocalValue(6.65344);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(6.65344));
+        localRate.put("country" , "China");
+        return localRate;
     }
 
     public static Map getSouthAfricaRate(){
-        return getLocalValue(13.7099);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(13.7099));
+        localRate.put("country" , "South Africa");
+        return localRate;
     }
 
     public static Map getCanadaRate(){
-        return getLocalValue(1.25260);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(1.25260));
+        localRate.put("country" , "Canada");
+        return localRate;
     }
 
     public static Map getFrenchRate(){
-        return getLocalValue(5.58981);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(5.58981));
+        localRate.put("country" , "French");
+        return localRate;
+
     }
 
     public static Map getJapanRate(){
-        return getLocalValue(112.62);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(112.62));
+        localRate.put("country" , "Japan");
+        return localRate;
     }
 
     public static Map getSaudiRate(){
-        return getLocalValue(3.74610);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(3.74610));
+        localRate.put("country" , "Saudi Arabia");
+        return localRate;
     }
 
     public static Map getUAERate(){
-        return getLocalValue(3.67205);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(3.67205));
+        localRate.put("country" , "UAE");
+        return localRate;
     }
 
     public static Map getNigeriaRate(){
-        return getLocalValue(356.650);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(356.650));
+        localRate.put("country" , "Nigeria");
+        return localRate;
     }
 
     public static Map getSouthKoreaRate(){
-        return getLocalValue(1144.17);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(1144.17));
+        localRate.put("country" , "South Korea");
+        return localRate;
     }
 
     public static Map getGermanyRate(){
-        return getLocalValue(1.66668);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(1.66668));
+        localRate.put("country" , "Germany");
+        return localRate;
+
     }
 
     public static Map getDenmarkRate(){
-        return getLocalValue(6.34258);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(6.34258));
+        localRate.put("country" , "Denmark");
+        return localRate;
+    }
+
+    public static Map getAmericanRate(){
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(1.0));
+        localRate.put("country" , "USA" );
+        return localRate;
     }
 
     public static Map getItalyRate(){
-        return getLocalValue(1650.01);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(1650.01));
+        localRate.put("country" , "Italy");
+        return localRate;
+
     }
 
     public static Map getKuwaitRate(){
-        return getLocalValue(0.30171);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(0.30171));
+        localRate.put("country" , "Kuwait");
+        return localRate;
     }
 
     public static Map getRussiaRate(){
-        return getLocalValue(58.1241);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(58.1241));
+        localRate.put("country" , "Russia");
+        return localRate;
     }
 
     public static Map getIndiaRate(){
-        return getLocalValue(65.4015);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(65.4015));
+        localRate.put("country" , "India");
+        return localRate;
     }
 
     public static Map getSingaporeRate(){
-        return getLocalValue(1.36408);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(1.36408));
+        localRate.put("country" , "Singapore");
+        return localRate;
     }
 
     public static Map getTaiwanRate(){
-        return getLocalValue(30.3383);
+        Map<String, String> localRate = new HashMap<>();
+        localRate.putAll(getLocalValue(30.3383));
+        localRate.put("country" , "Taiwan");
+        return localRate;
     }
 
 
@@ -95,11 +162,15 @@ public class CountryUtils {
         Double btc = Double.parseDouble(BTC);
         Double eth = Double.parseDouble(ETH);
 
-        Double localBtcValue = btc * conversionRate;
-        Double localEthValue = eth * conversionRate;
+        Double btcValue = (btc * conversionRate);
+        Double ethValue = eth * conversionRate;
+
+        String localBtcValue = btcValue.toString();
+        String localEthValue = ethValue.toString();
+
 
 //        String[] localArray = {localBtcValue.toString(), localEthValue.toString()};
-        Map<String, Double> localArray = new HashMap<>();
+        Map<String, String > localArray = new HashMap<>();
         localArray.put("btcValue" , localBtcValue );
         localArray.put("ethValue", localEthValue);
         return localArray;
@@ -107,10 +178,10 @@ public class CountryUtils {
 
     public static Map[] getAllLocalCurrencies(){
 //        Map<String, Double> countriesCurrencies = new HashMap<>();
-        Map[] currencies = {getBrazilRate(), getChinaRate(), getCanadaRate(), getDenmarkRate(),
+        Map[] currencies = {getAmericanRate(),getBrazilRate(), getChinaRate(), getCanadaRate(), getDenmarkRate(),
                 getEnglandRate(), getFrenchRate(), getGermanyRate(), getSouthAfricaRate(), getSouthKoreaRate(),
                 getIndiaRate(), getItalyRate(), getJapanRate(), getKuwaitRate(), getRussiaRate(), getSaudiRate(),
-                getNigeriaRate(), getTaiwanRate(), getUAERate()};
+                getNigeriaRate(), getTaiwanRate(), getUAERate(), getSingaporeRate()};
         return currencies ;
     }
 }
