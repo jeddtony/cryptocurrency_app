@@ -1,6 +1,7 @@
 package com.example.jedi.cryptocurrent3;
 
 import android.content.AsyncTaskLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jedi.cryptocurrent3.utils.JsonUtils;
 import com.example.jedi.cryptocurrent3.utils.NetworkUtils;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity
        private String results;
       private   RecyclerView mRecyclerView;
         private CurrencyAdapter mCurrencyAdapter;
+    public static Map[] allMaps;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +49,10 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+              Class startCreateCard = CreateCard.class;
+                Intent intent = new Intent(getBaseContext(), startCreateCard);
+                // We didnt call put extra because we are not passing any string to the next
+                startActivity(intent);
             }
         });
 
@@ -109,6 +114,11 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            Toast.makeText(getBaseContext()," You tapped on view cards", Toast.LENGTH_LONG).show();
+            Class viewCards = ViewCards.class;
+            Intent startViewCards =  new Intent(getBaseContext(), viewCards);
+            startActivity(startViewCards);
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -175,6 +185,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(Loader<Map[]> loader, Map[] maps) {
+        allMaps = maps;
         mCurrencyAdapter.swapMap(maps);
         if(maps != null){
             mCurrencyAdapter.swapMap(maps);

@@ -16,15 +16,15 @@
         <TextView
             android:id="@+id/country_title"
             android:paddingLeft="16dp"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="40dp"
             android:text="Country"
             android:textSize="35dp"/>
         <TextView
-            android:paddingRight="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
             android:id="@+id/btc_title"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="40dp"
             android:text="BTC"
             android:textSize="35dp"
@@ -32,7 +32,7 @@
         <TextView
             android:id="@+id/eth_title"
             android:layout_marginLeft="16dp"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="40dp"
             android:text="ETH"
             android:textSize="35dp"

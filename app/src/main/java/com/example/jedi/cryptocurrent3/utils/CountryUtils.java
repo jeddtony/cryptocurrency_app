@@ -1,6 +1,8 @@
 package com.example.jedi.cryptocurrent3.utils;
 
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +19,7 @@ public class CountryUtils {
     public static Map getEnglandRate(){
         Map<String, String> localRate = new HashMap<>();
         localRate.putAll(getLocalValue(0.76497));
-        localRate.put("country ", "England");
+        localRate.put("country", "England");
         return localRate;
     }
 
@@ -52,7 +54,7 @@ public class CountryUtils {
     public static Map getFrenchRate(){
         Map<String, String> localRate = new HashMap<>();
         localRate.putAll(getLocalValue(5.58981));
-        localRate.put("country" , "French");
+        localRate.put("country" , "France");
         return localRate;
 
     }
@@ -162,11 +164,14 @@ public class CountryUtils {
         Double btc = Double.parseDouble(BTC);
         Double eth = Double.parseDouble(ETH);
 
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+
         Double btcValue = (btc * conversionRate);
         Double ethValue = eth * conversionRate;
 
-        String localBtcValue = btcValue.toString();
-        String localEthValue = ethValue.toString();
+        String localBtcValue = df.format(btcValue);
+        String localEthValue = df.format(ethValue);
 
 
 //        String[] localArray = {localBtcValue.toString(), localEthValue.toString()};

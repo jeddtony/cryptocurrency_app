@@ -61,5 +61,6 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.Curren
             mEthValue = (TextView) itemView.findViewById(R.id.eth_value);
 
         }
+
     }
 }
