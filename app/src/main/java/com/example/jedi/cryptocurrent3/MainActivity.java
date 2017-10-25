@@ -116,6 +116,9 @@ public class MainActivity extends AppCompatActivity
 //            Class viewCards = ViewCards.class;
 //            Intent startViewCards =  new Intent(getBaseContext(), viewCards);
 //            startActivity(startViewCards);
+            Class cardListActivity = CardListActivity.class;
+            Intent startCardList = new Intent(getBaseContext(),cardListActivity);
+            startActivity(startCardList);
 
         } else if (id == R.id.nav_gallery) {
 

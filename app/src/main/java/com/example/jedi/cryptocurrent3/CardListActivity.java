@@ -2,6 +2,7 @@ package com.example.jedi.cryptocurrent3;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -9,15 +10,18 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import com.example.jedi.cryptocurrent3.data.CryptocurrentContract;
 import com.example.jedi.cryptocurrent3.dummy.DummyContent;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * An activity representing a list of Cards. This activity
@@ -68,16 +72,17 @@ public class CardListActivity extends AppCompatActivity {
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         // TODO: Replace the DummyContent.ITEMS with what is gotten from the loaderManager Callback
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+        DummyContent dc = new DummyContent(getBaseContext());
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(dc.mCursor));
     }
 
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-        private final List<DummyContent.DummyItem> mValues;
+        private final Cursor mValues;
 
         // TODO: This is where you it receives the cursor
-        public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
+        public SimpleItemRecyclerViewAdapter(Cursor items) {
             mValues = items;
         }
 
@@ -92,16 +97,41 @@ public class CardListActivity extends AppCompatActivity {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             // TODO: Replace this with variable that will be used with the views using the cursor
             // TODO: Dont delete the dummyContent instead modify it to fetch from the database
-            holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+            Map[] allMaps = MainActivity.allMaps;
+            mValues.moveToPosition(position);
+//            holder.mItem = mValues
+//            holder.mIdView.setText(mValues.get(position).id);
+//            holder.mContentView.setText(mValues.get(position).content);
+            int countryColumnIndex = mValues.getColumnIndex(CryptocurrentContract.CryptocurrentEntry.COLUMN_COUNTRY);
+            String countryName = mValues.getString(countryColumnIndex);
+            Log.i("Country name", ""+ countryName);
+            for (Map map: allMaps) {
+                if(map.get("country").equals(countryName) ){
+                    Log.i("looping", "" + countryName + " " + map.get("country"));
+                    String country = map.get("country").toString();
+                    String btcValue = map.get("btcValue").toString();
+                    String ethValue = map.get("ethValue").toString();
+                    Log.i("BtcValue", ""+btcValue);
+                    Log.i("EthValue", ""+ethValue);
+                    holder.mCountryName.setText(country);
+                    holder.mBtcValue.setText(btcValue);
+                    holder.mEthValue.setText(ethValue);
+                }
+//            else {
+//                Log.i("Na lie", "Map country does not match any country name");
+//                Log.i("looping", "" + countryName + " " + map.get("country"));
+//            }
+            }
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        arguments.putString(CardDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        // TODO: Replace ARG_ITEM_ID with the column of the cursor
+                        arguments.putString(CardDetailFragment.ARG_COUNTRY_NAME, holder.mCountryName.getText().toString());
+                        arguments.putString(CardDetailFragment.ARG_BTC_VALUE, holder.mBtcValue.getText().toString());
+                        arguments.putString(CardDetailFragment.ARG_ETH_VALUE, holder.mEthValue.getText().toString());
                         CardDetailFragment fragment = new CardDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
@@ -110,9 +140,12 @@ public class CardListActivity extends AppCompatActivity {
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, CardDetailActivity.class);
-                        intent.putExtra(CardDetailFragment.ARG_ITEM_ID, holder.mItem.id);
-
+                        // TODO: Replace ARG_ITEM_ID with the column of the cursor
+                        intent.putExtra(CardDetailFragment.ARG_COUNTRY_NAME, holder.mCountryName.getText().toString());
+                        intent.putExtra(CardDetailFragment.ARG_BTC_VALUE, holder.mBtcValue.getText().toString());
+                        intent.putExtra(CardDetailFragment.ARG_ETH_VALUE, holder.mEthValue.getText().toString());
                         context.startActivity(intent);
+
                     }
                 }
             });
@@ -120,25 +153,29 @@ public class CardListActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return mValues.size();
+            return mValues.getCount();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public final View mView;
-            public final TextView mIdView;
-            public final TextView mContentView;
-            public DummyContent.DummyItem mItem;
+            public final TextView mCountryName;
+            public final TextView mBtcValue;
+            public final TextView mEthValue;
+
 
             public ViewHolder(View view) {
                 super(view);
                 mView = view;
-                mIdView = (TextView) view.findViewById(R.id.id);
-                mContentView = (TextView) view.findViewById(R.id.content);
+                mCountryName = (TextView) view.findViewById(R.id.card_country_name);
+                mBtcValue = (TextView) view.findViewById(R.id.card_btc_value);
+                mEthValue = (TextView) view.findViewById(R.id.card_eth_value);
             }
 
             @Override
             public String toString() {
-                return super.toString() + " '" + mContentView.getText() + "'";
+                return super.toString()
+//                        + " '" + mContentView.getText() + "'"
+                        ;
             }
         }
     }

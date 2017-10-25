@@ -22,17 +22,17 @@ public class CardDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+//        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -53,8 +53,12 @@ public class CardDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(CardDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(CardDetailFragment.ARG_ITEM_ID));
+            arguments.putString(CardDetailFragment.ARG_COUNTRY_NAME,
+                    getIntent().getStringExtra(CardDetailFragment.ARG_COUNTRY_NAME));
+            arguments.putString(CardDetailFragment.ARG_BTC_VALUE,
+                    getIntent().getStringExtra(CardDetailFragment.ARG_BTC_VALUE));
+            arguments.putString(CardDetailFragment.ARG_ETH_VALUE,
+                    getIntent().getStringExtra(CardDetailFragment.ARG_ETH_VALUE));
             CardDetailFragment fragment = new CardDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
