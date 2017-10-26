@@ -30,15 +30,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name="com.example.jedi.learnmasterdetail.ViewCards" />
-        <activity
-            android:name="com.example.jedi.learnmasterdetail.ConvertCurrency"
-            android:label="@string/title_activity_convert_currency"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CardListActivity"
             android:label="@string/title_card_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+
+        </activity>
         <activity
             android:name=".CardDetailActivity"
             android:label="@string/title_card_detail"

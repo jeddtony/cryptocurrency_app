@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +31,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         android.app.LoaderManager.LoaderCallbacks<Map[]> {
 
-       private TextView mTextView ;
-       private String results;
+       private ProgressBar mProgressBar;
+       private TextView mErrorMessage;
       private   RecyclerView mRecyclerView;
         private CurrencyAdapter mCurrencyAdapter;
     public static Map[] allMaps;
@@ -62,14 +63,18 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-//        mTextView = (TextView) findViewById(R.id.display_result);
+
+        mProgressBar = (ProgressBar) findViewById(R.id.pb_loading_indicator);
+        mErrorMessage = (TextView) findViewById(R.id.error_loading);
         mRecyclerView = (RecyclerView)findViewById(R.id.recyclerview_main) ;
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mCurrencyAdapter = new CurrencyAdapter(this);
         mRecyclerView.setAdapter(mCurrencyAdapter);
+        showLoading();
         getLoaderManager().initLoader(0, null, this);
+
     }
 
     @Override
@@ -151,6 +156,7 @@ public class MainActivity extends AppCompatActivity
                     deliverResult(mCryptoData);
                 }
                 else{
+//                    mProgressBar.setVisibility(View.VISIBLE);
                     Log.i("Den_Den", "Now on the onStartLoading else");
                     //TODO: display the loading bar
                     forceLoad();
@@ -176,7 +182,7 @@ public class MainActivity extends AppCompatActivity
 
             public void deliverResult(Map[] data){
                 mCryptoData = data;
-                Log.i("DeliverResult", ""+ data.length);
+//                Log.i("DeliverResult", ""+ data.length);
                 super.deliverResult(data);
             }
 
@@ -187,8 +193,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onLoadFinished(Loader<Map[]> loader, Map[] maps) {
         allMaps = maps;
-        mCurrencyAdapter.swapMap(maps);
+//        mCurrencyAdapter.swapMap(maps);
         if(maps != null){
+            showLoadedData();
             mCurrencyAdapter.swapMap(maps);
 //            for(Map string: maps){
 //                Log.i("Ghen_Ghen ", " "+string.get("country") );
@@ -201,6 +208,7 @@ public class MainActivity extends AppCompatActivity
 
         else {
             Log.i("Ogbeni ", "You get empty data");
+            showErrorMessage();
         }
 
 //        mTextView.setText(results);
@@ -208,6 +216,30 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLoaderReset(Loader<Map[]> loader) {
+
+    }
+
+    private void showLoading (){
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        mProgressBar .setVisibility(View.VISIBLE);
+        mErrorMessage.setVisibility(View.INVISIBLE);
+    }
+
+    private void showLoadedData(){
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+    private void showErrorMessage(){
+        mProgressBar.setVisibility(View.INVISIBLE);
+        mErrorMessage.setVisibility(View.VISIBLE);
+    }
+
+    public void refreshData(View view){
+//       Toast.makeText(getBaseContext(), "Refreshing Data", Toast.LENGTH_LONG).show();
+////        showLoading();
+//        Log.i("REFRESHING DATA", "IT IS REFRESHING DATA");
+//       this.getLoaderManager().initLoader(0, null, this);
 
     }
 }

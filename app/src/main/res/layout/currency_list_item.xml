@@ -8,24 +8,24 @@
     <TextView
         android:id="@+id/country_value"
         android:paddingLeft="16dp"
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_weight="2"
         android:text="Country"
         android:textSize="20dp"/>
     <TextView
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
         android:id="@+id/btc_value"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_weight="1"
         android:text="BTC"
         android:textSize="20dp"
         />
     <TextView
         android:id="@+id/eth_value"
-        android:layout_marginLeft="16dp"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_weight="1"
         android:text="ETH"
         android:textSize="20dp"
         />
