@@ -1,10 +1,16 @@
 package com.example.jedi.cryptocurrent3;
 
 import android.content.AsyncTaskLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,6 +32,7 @@ import com.example.jedi.cryptocurrent3.utils.NetworkUtils;
 
 import java.net.URL;
 import java.util.Map;
+import java.util.jar.Manifest;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -73,9 +80,64 @@ public class MainActivity extends AppCompatActivity
         mCurrencyAdapter = new CurrencyAdapter(this);
         mRecyclerView.setAdapter(mCurrencyAdapter);
         showLoading();
-        getLoaderManager().initLoader(0, null, this);
+//        getLoaderManager().initLoader(0, null, this);
+        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED){
+            Toast.makeText(getBaseContext(), "In the context compat ", Toast.LENGTH_LONG).show();
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.INTERNET)){
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Need Storage Permission");
+                builder.setMessage("This app needs storage permission.");
+                builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.INTERNET}, 3);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
+            else {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.INTERNET}, 0);
+            }
+        }
+        else {
+            Toast.makeText(getBaseContext(), "Jed you already have the permission", Toast.LENGTH_LONG).show();
+            proceedAfterPermission();
+        }
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 3) {
+            if (ActivityCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                //Got Permission
+                proceedAfterPermission();
+            }
+        }
+    }
+
+    private void proceedAfterPermission(){
+        getLoaderManager().initLoader(0, null, this);
+    }
+
+//    @Override
+//    protected void onPostResume() {
+//        super.onPostResume();
+//        if (sentToSettings) {
+//            if (ActivityCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+//                //Got Permission
+//                proceedAfterPermission();
+//            }
+//        }
+//    }
 
     @Override
     public void onBackPressed() {
@@ -167,6 +229,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public Map[] loadInBackground() {
                 Log.i("Den_Den", "Now on the loadInBackground");
+
                 URL multiplePrice = NetworkUtils.getMultiplePriceUrl(getContext());
                 try {
                     String results = NetworkUtils.getResponseFromApi(multiplePrice);
@@ -216,6 +279,23 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLoaderReset(Loader<Map[]> loader) {
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 3:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(getBaseContext(), "We have the permission", Toast.LENGTH_LONG).show();
+                    getLoaderManager().initLoader(0, null, this);
+
+                }else {
+                  Log.i("Permission Denied", "The permission was denied");
+            }
+//            return;
+        }
 
     }
 

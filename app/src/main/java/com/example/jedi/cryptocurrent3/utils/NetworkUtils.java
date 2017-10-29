@@ -75,6 +75,7 @@ public class NetworkUtils {
 
     }
 
+
     public static String getResponseFromApi(URL url) throws IOException{
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         try{
