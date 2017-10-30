@@ -1,6 +1,8 @@
 package com.example.jedi.cryptocurrent3.utils;
 
 
+import com.example.jedi.cryptocurrent3.R;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -189,4 +191,74 @@ public class CountryUtils {
                 getNigeriaRate(), getTaiwanRate(), getUAERate(), getSingaporeRate()};
         return currencies ;
     }
+
+    public static int getCountryFlag(String countryName){
+        int countryFlag =0 ;
+        switch (countryName){
+            case "USA":
+                countryFlag =   R.drawable.usa_flag;
+                break;
+            case "Brazil":
+                countryFlag = R.drawable.brazil_flag;
+                break;
+            case "China":
+                countryFlag = R.drawable.china_flag;
+                break;
+            case "Canada":
+                countryFlag = R.drawable.canada_flag;
+                break;
+            case "Denmark":
+                countryFlag = R.drawable.denmark_flag;
+                break;
+            case "England":
+                countryFlag = R.drawable.england_flag;
+                break;
+            case "France":
+                countryFlag = R.drawable.france_flag;
+                break;
+            case "Germany":
+                countryFlag = R.drawable.germany_flag;
+                break;
+            case "India":
+                countryFlag = R.drawable.indian_flag;
+                break;
+            case "Italy":
+                countryFlag = R.drawable.italy_flag;
+                break;
+            case "Japan":
+                countryFlag = R.drawable.japan_flag;
+                break;
+            case "Kuwait":
+                countryFlag = R.drawable.kuwait_flag;
+                break;
+            case "Russia":
+                countryFlag = R.drawable.russian_flag;
+                break;
+            case "Saudi Arabia":
+                countryFlag = R.drawable.saudi_flag;
+                break;
+            case "Nigeria":
+                countryFlag = R.drawable.naija_flag;
+                break;
+            case "Taiwan":
+                countryFlag = R.drawable.taiwan_flag;
+                break;
+            case "UAE":
+                countryFlag = R.drawable.uae_flag;
+                break;
+            case "Singapore":
+                countryFlag = R.drawable.singapore;
+                break;
+            case "South Africa":
+                countryFlag = R.drawable.south_african_flag;
+                break;
+            case "South Korea":
+                countryFlag = R.drawable.south_korea;
+                break;
+            default:
+//                countryFlag = 0;
+        }
+        return countryFlag;
+    }
+
 }

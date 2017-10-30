@@ -82,4 +82,5 @@ public class CardDetailActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

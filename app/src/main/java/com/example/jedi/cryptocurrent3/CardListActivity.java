@@ -14,11 +14,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
 import com.example.jedi.cryptocurrent3.data.CryptocurrentContract;
 import com.example.jedi.cryptocurrent3.dummy.DummyContent;
+import com.example.jedi.cryptocurrent3.utils.CountryUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -44,18 +46,18 @@ public class CardListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_list);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());
+//        toolbar.setTitle(getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         View recyclerView = findViewById(R.id.card_list);
         assert recyclerView != null;
@@ -116,6 +118,7 @@ public class CardListActivity extends AppCompatActivity {
                     holder.mCountryName.setText(country);
                     holder.mBtcValue.setText(btcValue);
                     holder.mEthValue.setText(ethValue);
+                    holder.mCountryFlag.setImageResource(CountryUtils.getCountryFlag(countryName));
                 }
 //            else {
 //                Log.i("Na lie", "Map country does not match any country name");
@@ -161,6 +164,7 @@ public class CardListActivity extends AppCompatActivity {
             public final TextView mCountryName;
             public final TextView mBtcValue;
             public final TextView mEthValue;
+            public final ImageView mCountryFlag;
 
 
             public ViewHolder(View view) {
@@ -169,6 +173,7 @@ public class CardListActivity extends AppCompatActivity {
                 mCountryName = (TextView) view.findViewById(R.id.card_country_name);
                 mBtcValue = (TextView) view.findViewById(R.id.card_btc_value);
                 mEthValue = (TextView) view.findViewById(R.id.card_eth_value);
+                mCountryFlag = (ImageView) view.findViewById(R.id.card_country_flag);
             }
 
             @Override

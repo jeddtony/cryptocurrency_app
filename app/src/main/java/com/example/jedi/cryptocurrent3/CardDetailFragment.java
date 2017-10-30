@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.jedi.cryptocurrent3.dummy.DummyContent;
+import com.example.jedi.cryptocurrent3.utils.CalcCurrencyUtils;
 
 /**
  * A fragment representing a single Card detail screen.
@@ -29,6 +33,10 @@ public class CardDetailFragment extends Fragment {
     private String countryName;
     private String btcValue;
     private String ethValue;
+    private EditText mInputValue;
+
+    private TextView mBtcValue;
+    private TextView mEthValue;
     /**
      * The dummy content this fragment is presenting.
      */
@@ -69,13 +77,40 @@ public class CardDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.card_detail, container, false);
 
         ((TextView) rootView.findViewById(R.id.country_name)).setText(countryName);
-        ((TextView) rootView.findViewById(R.id.convert_btc_value)).setText(btcValue);
-        ((TextView) rootView . findViewById(R.id.convert_eth_value)).setText(ethValue);
-
+        mBtcValue =  (TextView) rootView.findViewById(R.id.convert_btc_value);
+        mEthValue = (TextView) rootView . findViewById(R.id.convert_eth_value);
+        mInputValue = (EditText) rootView.findViewById(R.id.inputValue);
+        Button calculateButton = (Button) rootView.findViewById(R.id.calc_button);
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String inputValue = mInputValue.getText().toString();
+                if(inputValue == null){
+                    return;
+                }
+                else {
+                    double btcResult = CalcCurrencyUtils.calcBtc(inputValue, btcValue);
+                    double ethResult = CalcCurrencyUtils.calcEth(inputValue, ethValue);
+                    Log.i("Jed here", "" + ethResult);
+                    Log.i("Jed here", "" + btcResult);
+                    mBtcValue.setText("" + btcResult);
+                    mEthValue.setText("" + ethResult);
+                }
+            }
+        });
         // Show the dummy content as text in a TextView.
 //        if (mItem != null) {
 //            ((TextView) rootView.findViewById(R.id.card_detail)).setText(mItem.details);
 //        }
         return rootView;
     }
+
+//    public void calcCurrency(View view){
+//        String inputValue = mInputValue.getText().toString();
+//        double btcResult = CalcCurrencyUtils.calcBtc(inputValue, btcValue);
+//        double ethResult = CalcCurrencyUtils.calcEth(inputValue, ethValue);
+//
+//        mBtcValue.setText("" + btcResult);
+//        mBtcValue.setText("" + ethResult);
+//    }
 }
