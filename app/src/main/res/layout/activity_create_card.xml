@@ -11,7 +11,7 @@
         android:id="@+id/spinner_countries"
         android:layout_width="325dp"
         android:layout_height="52dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="42dp" />

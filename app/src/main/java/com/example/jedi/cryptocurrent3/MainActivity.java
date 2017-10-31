@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_view_cards) {
             // Handle the camera action
             Toast.makeText(getBaseContext()," You tapped on view cards", Toast.LENGTH_LONG).show();
 //            Class viewCards = ViewCards.class;
@@ -187,17 +187,22 @@ public class MainActivity extends AppCompatActivity
             Intent startCardList = new Intent(getBaseContext(),cardListActivity);
             startActivity(startCardList);
 
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_create_cards) {
+            Class startCreateCard = CreateCard.class;
+            Intent intent = new Intent(getBaseContext(), startCreateCard);
+            // We didnt call put extra because we are not passing any string to the next
+            startActivity(intent);
 
         }
+//         else if (id == R.id.nav_slideshow) {
+//
+//        } else if (id == R.id.nav_manage) {
+//
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

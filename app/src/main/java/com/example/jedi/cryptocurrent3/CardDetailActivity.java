@@ -43,7 +43,7 @@ public class CardDetailActivity extends AppCompatActivity {
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
         // (e.g. when rotating the screen from portrait to landscape).
-        // In this case, the fragment will automatically be re-added
+        // In this case, the fragment will automatically side_bar_img re-added
         // to its container so we don't need to manually add it.
         // For more information, see the Fragments API guide at:
         //

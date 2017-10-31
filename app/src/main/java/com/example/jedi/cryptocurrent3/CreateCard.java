@@ -21,6 +21,11 @@ public class CreateCard extends AppCompatActivity implements OnItemSelectedListe
                                 "England","France", "Germany","India", "Italy", "Japan",
                             "Kuwait", "Nigeria", "Russia", "Saudi Arabia", "Singapore","South Africa",
                             "South Korea", "Taiwan", "UAE"};
+    private int[] countryFlags = {R.drawable.usa_flag, R.drawable.brazil_flag, R.drawable.canada_flag, R.drawable.china_flag,
+                                    R.drawable.denmark_flag, R.drawable.england_flag, R.drawable.france_flag, R.drawable.germany_flag,
+                                    R.drawable.indian_flag, R.drawable.italy_flag, R.drawable.japan_flag, R.drawable.kuwait_flag,
+                                    R.drawable.naija_flag, R.drawable.russian_flag, R.drawable.saudi_flag, R.drawable.singapore,
+                                    R.drawable.south_african_flag, R.drawable.south_korea, R.drawable.taiwan_flag, R.drawable.uae_flag};
     public static String selectedCountry = null;
     public static boolean btcSelected = false;
     public static boolean ethSelected = false;
@@ -32,12 +37,18 @@ public class CreateCard extends AppCompatActivity implements OnItemSelectedListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_card);
-        mSpinnerCountries = (Spinner) findViewById(R.id.spinner_countries);
-        ArrayAdapter <String> countryAdapter = new ArrayAdapter<>(CreateCard.this,
-                                                android.R.layout.simple_spinner_item , countries);
-        countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        mSpinnerCountries.setAdapter(countryAdapter);
-        mSpinnerCountries.setOnItemSelectedListener(this);
+//        mSpinnerCountries = (Spinner) findViewById(R.id.spinner_countries);
+//        ArrayAdapter <String> countryAdapter = new ArrayAdapter<>(CreateCard.this,
+//                                                android.R.layout.simple_spinner_item , countries);
+//        countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+//        mSpinnerCountries.setAdapter(countryAdapter);
+//        mSpinnerCountries.setOnItemSelectedListener(this);
+
+        Spinner spinner = (Spinner)findViewById(R.id.spinner_countries);
+        spinner.setOnItemSelectedListener(this);
+
+        CustomSpinnerAdapter customSpinnerAdapter = new CustomSpinnerAdapter(getBaseContext(), countryFlags, countries);
+        spinner.setAdapter(customSpinnerAdapter);
         CryptocurrentDbHelper cryptocurrentDbHelper = new CryptocurrentDbHelper(this);
         mdb = cryptocurrentDbHelper.getWritableDatabase();
         cryptocurrentDbHelper.onCreate(mdb);

@@ -1,6 +1,7 @@
 package com.example.jedi.cryptocurrent3;
 
 import android.app.Activity;
+import android.media.Image;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jedi.cryptocurrent3.dummy.DummyContent;
 import com.example.jedi.cryptocurrent3.utils.CalcCurrencyUtils;
+import com.example.jedi.cryptocurrent3.utils.CountryUtils;
 
 /**
  * A fragment representing a single Card detail screen.
@@ -66,9 +69,10 @@ public class CardDetailFragment extends Fragment {
             Activity activity = this.getActivity();
 //            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
 //            if (appBarLayout != null) {
-//                appBarLayout.setTitle(mItem.content);
-            }
+//                appBarLayout.setTitle("Calculate Currency");
+//            }
         }
+    }
 
 
     @Override
@@ -80,6 +84,8 @@ public class CardDetailFragment extends Fragment {
         mBtcValue =  (TextView) rootView.findViewById(R.id.convert_btc_value);
         mEthValue = (TextView) rootView . findViewById(R.id.convert_eth_value);
         mInputValue = (EditText) rootView.findViewById(R.id.inputValue);
+        ImageView countryFlag = ((ImageView) rootView.findViewById(R.id.detail_country_flag));
+        countryFlag.setImageResource(CountryUtils.getCountryFlag(countryName));
         Button calculateButton = (Button) rootView.findViewById(R.id.calc_button);
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override

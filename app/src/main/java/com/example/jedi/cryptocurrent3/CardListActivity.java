@@ -64,10 +64,10 @@ public class CardListActivity extends AppCompatActivity {
         setupRecyclerView((RecyclerView) recyclerView);
 
         if (findViewById(R.id.card_detail_container) != null) {
-            // The detail container view will be present only in the
+            // The detail container view will side_bar_img present only in the
             // large-screen layouts (res/values-w900dp).
             // If this view is present, then the
-            // activity should be in two-pane mode.
+            // activity should side_bar_img in two-pane mode.
             mTwoPane = true;
         }
     }
@@ -97,7 +97,7 @@ public class CardListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            // TODO: Replace this with variable that will be used with the views using the cursor
+            // TODO: Replace this with variable that will side_bar_img used with the views using the cursor
             // TODO: Dont delete the dummyContent instead modify it to fetch from the database
             Map[] allMaps = MainActivity.allMaps;
             mValues.moveToPosition(position);
