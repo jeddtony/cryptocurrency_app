@@ -45,19 +45,6 @@ public class CardListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_list);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        toolbar.setTitle(getTitle());
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
         View recyclerView = findViewById(R.id.card_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
@@ -100,9 +87,6 @@ public class CardListActivity extends AppCompatActivity {
             // TODO: Dont delete the dummyContent instead modify it to fetch from the database
             Map[] allMaps = MainActivity.allMaps;
             mValues.moveToPosition(position);
-//            holder.mItem = mValues
-//            holder.mIdView.setText(mValues.get(position).id);
-//            holder.mContentView.setText(mValues.get(position).content);
             int countryColumnIndex = mValues.getColumnIndex(CryptocurrentContract.CryptocurrentEntry.COLUMN_COUNTRY);
             String countryName = mValues.getString(countryColumnIndex);
             Log.i("Country name", ""+ countryName);
@@ -119,10 +103,6 @@ public class CardListActivity extends AppCompatActivity {
                     holder.mEthValue.setText(ethValue);
                     holder.mCountryFlag.setImageResource(CountryUtils.getCountryFlag(countryName));
                 }
-//            else {
-//                Log.i("Na lie", "Map country does not match any country name");
-//                Log.i("looping", "" + countryName + " " + map.get("country"));
-//            }
             }
 
             holder.mView.setOnClickListener(new View.OnClickListener() {

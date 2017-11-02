@@ -60,17 +60,12 @@ public class CardDetailFragment extends Fragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-//            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_COUNTRY_NAME));
 
             countryName = getArguments().getString(ARG_COUNTRY_NAME);
             btcValue = getArguments().getString(ARG_BTC_VALUE);
             ethValue = getArguments().getString(ARG_ETH_VALUE);
 
             Activity activity = this.getActivity();
-//            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-//            if (appBarLayout != null) {
-//                appBarLayout.setTitle("Calculate Currency");
-//            }
         }
     }
 
@@ -104,19 +99,6 @@ public class CardDetailFragment extends Fragment {
                 }
             }
         });
-        // Show the dummy content as text in a TextView.
-//        if (mItem != null) {
-//            ((TextView) rootView.findViewById(R.id.card_detail)).setText(mItem.details);
-//        }
         return rootView;
     }
-
-//    public void calcCurrency(View view){
-//        String inputValue = mInputValue.getText().toString();
-//        double btcResult = CalcCurrencyUtils.calcBtc(inputValue, btcValue);
-//        double ethResult = CalcCurrencyUtils.calcEth(inputValue, ethValue);
-//
-//        mBtcValue.setText("" + btcResult);
-//        mBtcValue.setText("" + ethResult);
-//    }
 }

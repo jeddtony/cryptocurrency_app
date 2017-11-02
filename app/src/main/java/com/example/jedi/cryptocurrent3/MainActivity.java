@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
         else {
-            Toast.makeText(getBaseContext(), "Jed you already have the permission", Toast.LENGTH_LONG).show();
             proceedAfterPermission();
         }
 
@@ -127,17 +126,6 @@ public class MainActivity extends AppCompatActivity
     private void proceedAfterPermission(){
         getLoaderManager().initLoader(0, null, this);
     }
-
-//    @Override
-//    protected void onPostResume() {
-//        super.onPostResume();
-//        if (sentToSettings) {
-//            if (ActivityCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-//                //Got Permission
-//                proceedAfterPermission();
-//            }
-//        }
-//    }
 
     @Override
     public void onBackPressed() {
@@ -179,10 +167,6 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_view_cards) {
             // Handle the camera action
-            Toast.makeText(getBaseContext()," You tapped on view cards", Toast.LENGTH_LONG).show();
-//            Class viewCards = ViewCards.class;
-//            Intent startViewCards =  new Intent(getBaseContext(), viewCards);
-//            startActivity(startViewCards);
             Class cardListActivity = CardListActivity.class;
             Intent startCardList = new Intent(getBaseContext(),cardListActivity);
             startActivity(startCardList);
@@ -194,15 +178,6 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         }
-//         else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -218,13 +193,11 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             protected void onStartLoading() {
-                Log.i("Den_Den", "Now on the onStartLoading");
+
                 if (mCryptoData != null){
                     deliverResult(mCryptoData);
                 }
                 else{
-//                    mProgressBar.setVisibility(View.VISIBLE);
-                    Log.i("Den_Den", "Now on the onStartLoading else");
                     //TODO: display the loading bar
                     forceLoad();
                 }
@@ -233,7 +206,6 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public Map[] loadInBackground() {
-                Log.i("Den_Den", "Now on the loadInBackground");
 
                 URL multiplePrice = NetworkUtils.getMultiplePriceUrl(getContext());
                 try {
@@ -250,8 +222,7 @@ public class MainActivity extends AppCompatActivity
 
             public void deliverResult(Map[] data){
                 mCryptoData = data;
-//                Log.i("DeliverResult", ""+ data.length);
-                super.deliverResult(data);
+               super.deliverResult(data);
             }
 
 
@@ -261,25 +232,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onLoadFinished(Loader<Map[]> loader, Map[] maps) {
         allMaps = maps;
-//        mCurrencyAdapter.swapMap(maps);
         if(maps != null){
             showLoadedData();
             mCurrencyAdapter.swapMap(maps);
-//            for(Map string: maps){
-//                Log.i("Ghen_Ghen ", " "+string.get("country") );
-
-//                results = string;
-//                mCurrencyAdapter.swapMap(string);
             }
-//            mCurrencyAdapter.swapMap(maps);
-
 
         else {
-            Log.i("Ogbeni ", "You get empty data");
             showErrorMessage();
         }
 
-//        mTextView.setText(results);
     }
 
     @Override
@@ -321,11 +282,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void refreshData(View view){
-//       Toast.makeText(getBaseContext(), "Refreshing Data", Toast.LENGTH_LONG).show();
-////        showLoading();
-//        Log.i("REFRESHING DATA", "IT IS REFRESHING DATA");
-//       this.getLoaderManager().initLoader(0, null, this);
-
     }
 }
 
