@@ -155,6 +155,9 @@ public class CreateCard extends AppCompatActivity implements OnItemSelectedListe
         }
     }
 
+    public void discard(View view){
+        finish();
+    }
 
     public long insertCard(){
         ContentValues cv = new ContentValues();
