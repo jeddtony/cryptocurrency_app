@@ -24,6 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".CreateCard"
             android:launchMode="singleTop"
@@ -42,11 +43,12 @@
                 android:value=".MainActivity" />
 
         </activity>
+
         <activity
             android:name=".CardDetailActivity"
             android:label="@string/title_card_detail"
-            android:parentActivityName=".CardListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:launchMode="singleTop"
+            android:parentActivityName=".CardListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jedi.cryptocurrent3.CardListActivity" />
