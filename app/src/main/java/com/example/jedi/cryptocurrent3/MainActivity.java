@@ -167,9 +167,14 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_view_cards) {
             // Handle the camera action
-            Class cardListActivity = CardListActivity.class;
-            Intent startCardList = new Intent(getBaseContext(),cardListActivity);
-            startActivity(startCardList);
+            if(allMaps == null){
+                Toast.makeText(getBaseContext(), "Sorry cant view cards now. Please check your network", Toast.LENGTH_LONG).show();
+            }
+            else {
+                Class cardListActivity = CardListActivity.class;
+                Intent startCardList = new Intent(getBaseContext(), cardListActivity);
+                startActivity(startCardList);
+            }
 
         } else if (id == R.id.nav_create_cards) {
             Class startCreateCard = CreateCard.class;

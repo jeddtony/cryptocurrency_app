@@ -1,7 +1,11 @@
 package com.example.jedi.cryptocurrent3.utils;
 
+import android.util.Log;
+
 import com.example.jedi.cryptocurrent3.MainActivity;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Map;
 
 /**
@@ -10,15 +14,23 @@ import java.util.Map;
 
 public class CalcCurrencyUtils {
 
-    public static double calcBtc(String inputBtc , String currentBtc){
-        double convertInputBtc = Double.parseDouble(inputBtc);
-        double convertCurrentBtc = Double.parseDouble(currentBtc);
-        return convertInputBtc / convertCurrentBtc;
+    public static String calcBtc(String inputBtc , String currentBtc){
+        double convertInputBtc = Float.parseFloat(inputBtc);
+        double convertCurrentBtc = Float.parseFloat(currentBtc);
+        Log.i("INPUT BTC", ""+convertInputBtc);
+        double result = convertInputBtc/ convertCurrentBtc;
+        Log.i("BTC RESULT", "" + result);
+        NumberFormat formatter = new DecimalFormat("0.00000");
+        return formatter.format(result);
     }
 
-    public static double calcEth(String inputEth , String currentEth){
-        double convertInputEth = Double.parseDouble(inputEth);
-        double convertCurrentEth = Double.parseDouble(currentEth);
-        return convertInputEth / convertCurrentEth;
+    public static String calcEth(String inputEth , String currentEth){
+        double convertInputEth = Float.parseFloat(inputEth);
+        double convertCurrentEth = Float.parseFloat(currentEth);
+        Log.i("INPUT ETH", "" + convertInputEth);
+        double result = convertInputEth/convertCurrentEth;
+        Log.i("ETH RESULT", "" + result);
+        NumberFormat formatter = new DecimalFormat("0.00000");
+        return  formatter.format(result);
     }
 }

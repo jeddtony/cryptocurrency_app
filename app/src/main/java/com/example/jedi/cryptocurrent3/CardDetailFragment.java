@@ -90,12 +90,12 @@ public class CardDetailFragment extends Fragment {
                     return;
                 }
                 else {
-                    double btcResult = CalcCurrencyUtils.calcBtc(inputValue, btcValue);
-                    double ethResult = CalcCurrencyUtils.calcEth(inputValue, ethValue);
+                    String btcResult = CalcCurrencyUtils.calcBtc(inputValue, btcValue);
+                    String ethResult = CalcCurrencyUtils.calcEth(inputValue, ethValue);
                     Log.i("Jed here", "" + ethResult);
                     Log.i("Jed here", "" + btcResult);
-                    mBtcValue.setText("" + btcResult);
-                    mEthValue.setText("" + ethResult);
+                    mBtcValue.setText( btcResult);
+                    mEthValue.setText( ethResult);
                 }
             }
         });
